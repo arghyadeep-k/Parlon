@@ -76,7 +76,7 @@ namespace Parlon.Controllers
         {
             string result = null;
             var obj = new ProcessData();
-            result = obj.process(request);
+            result = obj.Process("Unit_1", "Load MW");
 
             if (result.Equals("") || result.Equals(null))
                 result = "Sorry, Parlon failed to fetch your data right now.";
