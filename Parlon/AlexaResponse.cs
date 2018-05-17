@@ -134,9 +134,9 @@ namespace Parlon
             }
         }
 
-        //public void HelpIntentHandler(Request request)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void HelpIntentHandler(AlexaRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

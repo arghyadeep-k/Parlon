@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Parlon
 {
@@ -122,12 +119,38 @@ namespace Parlon
                 [JsonObject("slots")]
                 public class SlotAttributes
                 {
-                    [JsonProperty("phrase")]
-                    public PhraseAttributes Phrase { get; set; }
+                    [JsonProperty("unit")]
+                    public UnitAttributes Unit { get; set; }
+
+                    [JsonProperty("parameter")]
+                    public ParameterAttributes Parameter { get; set; }
+
+                    [JsonProperty("num")]
+                    public NumAttributes Num { get; set; }
                 }
 
-                [JsonObject("phrase")]
-                public class PhraseAttributes
+                [JsonObject("unit")]
+                public class UnitAttributes
+                {
+                    [JsonProperty("name")]
+                    public string Name { get; set; }
+
+                    [JsonProperty("value")]
+                    public string Value { get; set; }
+                }
+
+                [JsonObject("parameter")]
+                public class ParameterAttributes
+                {
+                    [JsonProperty("name")]
+                    public string Name { get; set; }
+
+                    [JsonProperty("value")]
+                    public string Value { get; set; }
+                }
+
+                [JsonObject("num")]
+                public class NumAttributes
                 {
                     [JsonProperty("name")]
                     public string Name { get; set; }

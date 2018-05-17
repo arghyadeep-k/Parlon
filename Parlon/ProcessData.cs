@@ -58,9 +58,6 @@ namespace Parlon
                 if (connection != null)
                     connection.Close();
             }
-            //Call database and fetch according to parameters provided.
-
-            
             foreach (DataRow dr in dataset.Tables[0].Rows)
             {
                 response = dr["Value"].ToString();

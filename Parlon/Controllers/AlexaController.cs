@@ -46,7 +46,7 @@ namespace Parlon.Controllers
             {
                 case "Parlon":
                 case "parlon":
-                    response = Process(request.Request.Intent.Slots.Phrase.Value.ToString());
+                    response = Process(request.Request.Intent.Slots);
                     break;
                 case "AMAZON.CancelIntent":
                 case "AMAZON.StopIntent":
@@ -62,26 +62,38 @@ namespace Parlon.Controllers
 
         private AlexaResponse HelpIntent(AlexaRequest request)
         {
-            var response = new AlexaResponse("To use Parlon, you can say, Alexa, ask Parlon what's the current temprature of the boiler?", true);
-            //response.Response.Reprompt.OutputSpeech.Text = "Please select one, top courses or new courses?";
+            var response = new AlexaResponse("To use Parlon, you can say, Alexa, ask Parlon what is the steam drum temperature of unit 1?", true);            
             return response;
         }
 
         private AlexaResponse CancelOrStopIntentHandler(AlexaRequest request)
         {
-            return new AlexaResponse("Thanks for using Parlon. Have a nice day.", true);
+            return new AlexaResponse("Thanks for using Parlon.", true);
         }
 
-        private AlexaResponse Process(string request)
+        private AlexaResponse Process(AlexaRequest.RequestAttributes.SlotAttributes request)
         {
             string result = null;
-            var obj = new ProcessData();
-            result = obj.Process("Unit_1", "Load MW");
+            string unit, parameter;
+            if (request.Unit.Value.ToString().Equals(null) || request.Num.Value.ToString().Equals(null) || request.Parameter.Value.ToString().Equals(null))
+            {
+                result = "You didn't seem to provide all the inputs.";
+            }
+            else
+            {
+                unit = request.Unit.Value.ToString() + "_" + request.Num.Value.ToString();
+                parameter = request.Parameter.Value.ToString();
 
-            if (result.Equals("") || result.Equals(null))
-                result = "Sorry, Parlon failed to fetch your data right now.";
+                var obj = new ProcessData();
+                result = obj.Process(unit, parameter);
+
+                if (result.Equals("") || result.Equals(null))
+                    result = "Sorry, Parlon failed to fetch your data right now.";
+                else
+                    result = "The "+ parameter +" of "+ request.Unit.Value.ToString()+request.Num.Value.ToString() +" is " + result;
+            }
+            
             var response = new AlexaResponse(result, true);
-
             return response;
         }
 
