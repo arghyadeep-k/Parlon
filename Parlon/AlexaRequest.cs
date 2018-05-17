@@ -119,8 +119,8 @@ namespace Parlon
                 [JsonObject("slots")]
                 public class SlotAttributes
                 {
-                    [JsonProperty("unit")]
-                    public UnitAttributes Unit { get; set; }
+                    //[JsonProperty("unit")]
+                    //public UnitAttributes Unit { get; set; }
 
                     [JsonProperty("parameter")]
                     public ParameterAttributes Parameter { get; set; }
@@ -129,15 +129,15 @@ namespace Parlon
                     public NumAttributes Num { get; set; }
                 }
 
-                [JsonObject("unit")]
-                public class UnitAttributes
-                {
-                    [JsonProperty("name")]
-                    public string Name { get; set; }
+                //[JsonObject("unit")]
+                //public class UnitAttributes
+                //{
+                //    [JsonProperty("name")]
+                //    public string Name { get; set; }
 
-                    [JsonProperty("value")]
-                    public string Value { get; set; }
-                }
+                //    [JsonProperty("value")]
+                //    public string Value { get; set; }
+                //}
 
                 [JsonObject("parameter")]
                 public class ParameterAttributes

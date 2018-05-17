@@ -75,13 +75,13 @@ namespace Parlon.Controllers
         {
             string result = null;
             string unit, parameter;
-            if (request.Unit.Value.ToString().Equals(null) || request.Num.Value.ToString().Equals(null) || request.Parameter.Value.ToString().Equals(null))
+            if (request.Num.Value.ToString().Equals(null) || request.Parameter.Value.ToString().Equals(null))
             {
                 result = "You didn't seem to provide all the inputs.";
             }
             else
             {
-                unit = request.Unit.Value.ToString() + "_" + request.Num.Value.ToString();
+                unit = "Unit_" + request.Num.Value.ToString();
                 parameter = request.Parameter.Value.ToString();
 
                 var obj = new ProcessData();
@@ -90,7 +90,21 @@ namespace Parlon.Controllers
                 if (result.Equals("") || result.Equals(null))
                     result = "Sorry, Parlon failed to fetch your data right now.";
                 else
-                    result = "The "+ parameter +" of "+ request.Unit.Value.ToString()+request.Num.Value.ToString() +" is " + result;
+                {
+                    string units = "";
+                    if (parameter.ToLower().Contains("temp"))
+                        units = "degree centrigade";
+                    else if (parameter.ToLower().Contains("pressure"))
+                        units = "mega pascal";
+                    else if (parameter.ToLower().Contains("load"))
+                        units = "mega watts";
+                    else if (parameter.ToLower().Contains("turbine"))
+                        units = "r p m";
+                    else if (parameter.ToLower().Contains("feeder"))
+                        units = "volts";
+
+                    result = "The " + parameter + " of Unit " + request.Num.Value.ToString() + " is " + result + " " + units;
+                }
             }
             
             var response = new AlexaResponse(result, true);
